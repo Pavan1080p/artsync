@@ -11,8 +11,8 @@ interface NavigationProps {
 }
 
 const defaultLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#artists", label: "Artists" },
+ 
+  { href: "#portfolios", label: "Portfolio" },
   { href: "#projects", label: "Projects" },
   { href: "#about", label: "About" },
 ]
@@ -43,7 +43,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps) {
             Sign In
           </Button>
           <Button className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 shadow-lg shadow-pink-500/25">
-            Get Started
+            Get Starte
           </Button>
         </div>
 
