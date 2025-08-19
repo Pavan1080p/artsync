@@ -30,7 +30,7 @@ const defaultFeatures: Feature[] = [
   {
     icon: Zap,
     title: "Project Creation",
-    description: "Start new projects, find collaborators, and bring your creative visions to life",
+    description: "Start new projects & find collaborators, and bring your creative visions to life",
   },
 ]
 
