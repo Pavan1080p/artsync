@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"; // Import Link from Next.js
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AnimatedLogo } from "@/components/layout/AnimatedLogo"
@@ -11,7 +12,6 @@ interface NavigationProps {
 }
 
 const defaultLinks = [
- 
   { href: "#portfolios", label: "Portfolio" },
   { href: "#projects", label: "Projects" },
   { href: "#about", label: "About" },
@@ -38,13 +38,18 @@ export function Navigation({ links = defaultLinks }: NavigationProps) {
           ))}
         </div>
 
+        {/* Desktop Buttons - Updated with Link */}
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="ghost" className="text-white hover:text-pink-400">
-            Sign In
-          </Button>
-          <Button className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 shadow-lg shadow-pink-500/25">
-            Get Starte
-          </Button>
+          <Link href="/auth?tab=login">
+            <Button variant="ghost" className="text-white hover:text-pink-400">
+              Sign In
+            </Button>
+          </Link>
+          <Link href="/auth?tab=register">
+            <Button className="bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 shadow-lg shadow-pink-500/25">
+              Get Started
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -73,13 +78,18 @@ export function Navigation({ links = defaultLinks }: NavigationProps) {
                   {link.label}
                 </a>
               ))}
+              {/* Mobile Buttons - Updated with Link */}
               <div className="pt-4 space-y-2">
-                <Button variant="ghost" className="w-full text-white hover:text-pink-400">
-                  Sign In
-                </Button>
-                <Button className="w-full bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600">
-                  Get Started
-                </Button>
+                <Link href="/auth?tab=login" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="ghost" className="w-full text-white hover:text-pink-400">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/auth?tab=register" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
           </motion.div>
