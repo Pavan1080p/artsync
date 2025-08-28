@@ -19,7 +19,7 @@ interface FeatureSectionProps {
 const defaultFeatures: Feature[] = [
   {
     icon: Users,
-    title: "Real-time Collaboration",
+    title: "Real Collaboration",
     description: "Work together seamlessly with artists worldwide using our advanced collaboration tools",
   },
   {
