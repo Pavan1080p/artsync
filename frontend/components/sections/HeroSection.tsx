@@ -14,7 +14,7 @@ interface HeroSectionProps {
 
 export function HeroSection({
   subtitle = "Welcome to the Future of Art",
-  description = "Where artists unite to build the future of creativity",
+  description = "Where artists unite to build the future of creativity !",
 
   secondaryCTA = "Explore Artists",
 }: HeroSectionProps) {
