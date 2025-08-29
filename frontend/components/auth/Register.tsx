@@ -70,7 +70,7 @@ export function Register({ onSwitchToLogin }: RegisterProps) {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name Field */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Full Name</label>
+          
           <div className="relative">
             <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <input
@@ -86,7 +86,7 @@ export function Register({ onSwitchToLogin }: RegisterProps) {
 
         {/* Email Field */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Email</label>
+          
           <div className="relative">
             <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <input
@@ -102,7 +102,7 @@ export function Register({ onSwitchToLogin }: RegisterProps) {
 
         {/* Password Field */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Password</label>
+          
           <div className="relative">
             <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <input
@@ -125,7 +125,7 @@ export function Register({ onSwitchToLogin }: RegisterProps) {
 
         {/* Confirm Password Field */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Confirm Password</label>
+         
           <div className="relative">
             <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <input
