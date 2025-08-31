@@ -12,9 +12,9 @@ public class UserResponse {
     private Long id;
     private String name;
     private String email;
-    private User.Role role; // Enum instead of String
+    private User.Role role;
 
-    // ✅ Custom constructor to map from User entity
+    // Custom constructor to map from User entity
     public UserResponse(User user) {
         this.id = user.getId();
         this.name = user.getName();
