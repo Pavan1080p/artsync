@@ -13,6 +13,8 @@ public class UserResponse {
     private String name;
     private String email;
     private User.Role role;
+    private String bio;
+    private String profilePic;
 
     // Custom constructor to map from User entity
     public UserResponse(User user) {
@@ -20,5 +22,7 @@ public class UserResponse {
         this.name = user.getName();
         this.email = user.getEmail();
         this.role = user.getRole();
+        this.bio = user.getBio();
+        this.profilePic = user.getProfilePic();
     }
 }

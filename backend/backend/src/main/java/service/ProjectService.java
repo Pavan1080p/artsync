@@ -35,4 +35,14 @@ public class ProjectService {
                 .map(ProjectResponse::new)
                 .collect(Collectors.toList());
     }
+
+    // NEW METHOD: Check if user has projects (for profile edit access)
+    public boolean userHasProjects(User user) {
+        return projectRepository.existsByUser(user);
+    }
+
+    // NEW METHOD: Get project count for user
+    public long getUserProjectCount(User user) {
+        return projectRepository.countByUser(user);
+    }
 }

@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-
     List<Project> findByUserOrderByCreatedAtDesc(User user);
 
+    // NEW METHODS for profile edit access control
+    boolean existsByUser(User user);
+    long countByUser(User user);
 }

@@ -4,7 +4,6 @@ import com.example.backend.dto.AuthResponse;
 import com.example.backend.dto.UserResponse;
 import com.example.backend.entity.User;
 import com.example.backend.repository.UserRepository;
-import com.example.backend.service.JwtService; // ✅ Corrected import statement here
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,12 +28,8 @@ public class AuthService {
 
         User savedUser = userRepository.save(user);
 
-        return new UserResponse(
-                savedUser.getId(),
-                savedUser.getName(),
-                savedUser.getEmail(),
-                savedUser.getRole()
-        );
+        // ⭐ FIX: Changed to use the new constructor that takes a User entity
+        return new UserResponse(savedUser);
     }
 
     public AuthResponse login(String email, String password) {
@@ -48,7 +43,8 @@ public class AuthService {
         String token = jwtService.generateToken(user);
 
         return AuthResponse.builder()
-                .user(new UserResponse(user.getId(), user.getName(), user.getEmail(), user.getRole()))
+                // ⭐ FIX: Changed to use the new constructor that takes a User entity
+                .user(new UserResponse(user))
                 .token(token)
                 .build();
     }

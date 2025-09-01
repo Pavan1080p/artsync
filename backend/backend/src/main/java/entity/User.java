@@ -1,6 +1,5 @@
 package com.example.backend.entity;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,7 +23,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder   // ✅ This will auto-generate User.builder()
+@Builder
 public class User implements UserDetails {
 
     @Id
@@ -49,6 +48,13 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    // NEW PROFILE FIELDS
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+
+    @Column(name = "profile_pic")
+    private String profilePic;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
