@@ -35,7 +35,7 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start with true for initial check
 
   // Check for existing token on mount
   useEffect(() => {
@@ -43,6 +43,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (savedToken) {
       setToken(savedToken);
       fetchProfile(savedToken);
+    } else {
+      setLoading(false); // No token found, done loading
     }
   }, []);
 
@@ -64,6 +66,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       console.error('Failed to fetch profile:', error);
       logout();
+    } finally {
+      setLoading(false); // Done loading after profile fetch
     }
   };
 
@@ -109,7 +113,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const data = await response.text();
       
       if (response.ok) {
-        return { success: true, message: data };
+        // After successful registration, automatically log in
+        const loginResult = await login(email, password);
+        if (loginResult.success) {
+          return { success: true, message: data };
+        } else {
+          return { success: false, error: 'Registration successful but login failed.' };
+        }
       } else {
         return { success: false, error: data };
       }

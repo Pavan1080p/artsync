@@ -47,7 +47,7 @@ export function Register({ onSwitchToLogin }: RegisterProps) {
     const result = await register(name, email, password);
     if (result.success) {
       setSuccess(result.message || 'Registration successful!');
-      router.push('/dashboard');
+      router.push('/edit-profile'); // Updated redirect
     } else {
       setError(result.error || 'Registration failed');
     }
@@ -125,7 +125,7 @@ export function Register({ onSwitchToLogin }: RegisterProps) {
 
         {/* Confirm Password Field */}
         <div className="space-y-2">
-         
+          
           <div className="relative">
             <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <input
