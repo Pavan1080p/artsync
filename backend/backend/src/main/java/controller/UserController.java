@@ -13,8 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -60,44 +58,15 @@ public class UserController {
                         .body(new ErrorResponse("Access denied or invalid principal type", HttpStatus.FORBIDDEN.value()));
             }
 
-            // Update profile through UserService (includes project check)
+            // Update profile through UserService (NO project restrictions for new user flow)
             User updatedUser = userService.updateProfile(user, request);
             UserResponse userResponse = new UserResponse(updatedUser);
 
             return ResponseEntity.ok(userResponse);
 
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(new ErrorResponse(e.getMessage(), HttpStatus.FORBIDDEN.value()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ErrorResponse("Failed to update profile: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()));
-        }
-    }
-
-    @GetMapping("/profile/edit-access")
-    public ResponseEntity<?> checkProfileEditAccess() {
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null || !authentication.isAuthenticated()) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(new ErrorResponse("Not authenticated", HttpStatus.UNAUTHORIZED.value()));
-            }
-
-            if (!(authentication.getPrincipal() instanceof User user)) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body(new ErrorResponse("Access denied or invalid principal type", HttpStatus.FORBIDDEN.value()));
-            }
-
-            boolean canEdit = userService.canEditProfile(user);
-            return ResponseEntity.ok(Map.of(
-                    "canEditProfile", canEdit,
-                    "message", canEdit ? "Profile editing is enabled" : "Create at least one project to edit your profile"
-            ));
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse("Failed to check edit access: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
     }
 }

@@ -12,15 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final ProjectService projectService;
 
     @Transactional
     public User updateProfile(User user, ProfileUpdateRequest request) {
-        // Check if user has projects (business rule enforcement)
-        if (!projectService.userHasProjects(user)) {
-            throw new IllegalStateException("Profile can only be edited after creating at least one project");
-        }
-
         // Update only non-null fields
         if (request.getName() != null && !request.getName().trim().isEmpty()) {
             user.setName(request.getName().trim());
@@ -35,9 +29,5 @@ public class UserService {
         }
 
         return userRepository.save(user);
-    }
-
-    public boolean canEditProfile(User user) {
-        return projectService.userHasProjects(user);
     }
 }
