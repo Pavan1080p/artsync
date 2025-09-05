@@ -14,7 +14,7 @@ interface NavigationProps {
 const defaultLinks = [
   { href: "#portfolios", label: "Portfolio" },
   { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
+  { href: "/about", label: "About" },
 ]
 
 export function Navigation({ links = defaultLinks }: NavigationProps) {
@@ -32,9 +32,9 @@ export function Navigation({ links = defaultLinks }: NavigationProps) {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           {links.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-pink-400 transition-colors">
+            <Link key={link.href} href={link.href} className="hover:text-pink-400 transition-colors">
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -69,14 +69,14 @@ export function Navigation({ links = defaultLinks }: NavigationProps) {
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
               {links.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   className="block hover:text-pink-400 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               {/* Mobile Buttons - Updated with Link */}
               <div className="pt-4 space-y-2">
