@@ -47,6 +47,7 @@ const defaultSections = [
       { label: "Help Center", href: "#" },
       { label: "Contact Us", href: "#" },
       { label: "Privacy Policy", href: "#" },
+      
       { label: "Terms of Service", href: "#" },
     ],
   },
