@@ -38,8 +38,7 @@ const defaultSections = [
     links: [
       { label: "Discord", href: "#" },
       { label: "Forums", href: "#" },
-      { label: "Events", href: "#" },
-      { label: "Blog", href: "#" },
+      
     ],
   },
   {
