@@ -1,5 +1,13 @@
+'use client';
+
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft, Eye, Heart, Users, Calendar, MapPin, DollarSign, Share2, MessageCircle } from 'lucide-react';
+import Link from 'next/link';
+
+interface ProjectDetailPageProps {
+  projectId: string;
+}
 
 const projectsData = [
   {
@@ -96,20 +104,20 @@ const projectsData = [
   }
 ];
 
-export default function ProjectDetailPage() {
-  const [projectId, setProjectId] = useState('1');
+const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ projectId }) => {
+  const router = useRouter();
   const [isJoined, setIsJoined] = useState(false);
 
   const project = projectsData.find(p => p.id === projectId);
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-950 to-indigo-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#0f0f23] via-[#1a1a3a] to-[#2d1b69] text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-          <button className="text-purple-400 hover:underline">
+          <Link href="/projects" className="text-[#e879f9] hover:underline">
             Back to Projects
-          </button>
+          </Link>
         </div>
       </div>
     );
@@ -117,38 +125,14 @@ export default function ProjectDetailPage() {
 
   const handleJoinProject = () => {
     setIsJoined(true);
-  };
-
-  const handleBack = () => {
-    setIsJoined(false);
+    alert(`Successfully joined "${project.title}"! The project owner will be notified.`);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-950 to-indigo-950 text-white">
-      {/* Project Selector */}
-      <div className="bg-black/20 border-b border-white/10 p-4">
-        <div className="max-w-7xl mx-auto">
-          <label className="text-sm text-gray-300 mr-3">Select Project:</label>
-          <select 
-            value={projectId} 
-            onChange={(e) => {
-              setProjectId(e.target.value);
-              setIsJoined(false);
-            }}
-            className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
-          >
-            {projectsData.map(p => (
-              <option key={p.id} value={p.id} className="bg-slate-900">
-                {p.title}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <main className="max-w-7xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0f23] via-[#1a1a3a] to-[#2d1b69] text-white">
+      <main className="max-w-7xl mx-auto px-6 py-12 pt-24">
         <button
-          onClick={handleBack}
+          onClick={() => router.push('/projects')}
           className="flex items-center gap-2 text-gray-300 hover:text-white mb-8 transition"
         >
           <ArrowLeft size={20} />
@@ -160,7 +144,7 @@ export default function ProjectDetailPage() {
             <div className="relative aspect-video bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center overflow-hidden">
               <div className="text-8xl">🎨</div>
               <div className="absolute top-4 left-4">
-                <span className="bg-gradient-to-r from-purple-400 to-blue-500 px-4 py-2 rounded-full text-sm font-semibold">
+                <span className="bg-gradient-to-r from-[#e879f9] to-[#3b82f6] px-4 py-2 rounded-full text-sm font-semibold">
                   {project.category}
                 </span>
               </div>
@@ -175,7 +159,7 @@ export default function ProjectDetailPage() {
             </div>
 
             <div>
-              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-purple-400 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-[#e879f9] bg-clip-text text-transparent">
                 {project.title}
               </h1>
               <p className="text-xl text-gray-300">by {project.artist}</p>
@@ -208,16 +192,16 @@ export default function ProjectDetailPage() {
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-4 text-purple-400">About This Project</h2>
+              <h2 className="text-2xl font-bold mb-4 text-[#e879f9]">About This Project</h2>
               <p className="text-gray-300 leading-relaxed">{project.description}</p>
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-4 text-purple-400">Requirements</h2>
+              <h2 className="text-2xl font-bold mb-4 text-[#e879f9]">Requirements</h2>
               <ul className="space-y-2">
                 {project.requirements.map((req, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-gray-300">
-                    <span className="text-purple-400 mt-1">•</span>
+                    <span className="text-[#e879f9] mt-1">•</span>
                     <span>{req}</span>
                   </li>
                 ))}
@@ -225,7 +209,7 @@ export default function ProjectDetailPage() {
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-4 text-purple-400 flex items-center gap-2">
+              <h2 className="text-2xl font-bold mb-4 text-[#e879f9] flex items-center gap-2">
                 <MessageCircle size={24} />
                 Discussion
               </h2>
@@ -236,10 +220,10 @@ export default function ProjectDetailPage() {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 lg:sticky lg:top-6">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sticky top-24">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Calendar size={20} className="text-purple-400" />
+                  <Calendar size={20} className="text-[#e879f9]" />
                   <div>
                     <p className="text-sm text-gray-400">Timeline</p>
                     <p className="font-semibold">{project.timeline}</p>
@@ -247,7 +231,7 @@ export default function ProjectDetailPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <MapPin size={20} className="text-purple-400" />
+                  <MapPin size={20} className="text-[#e879f9]" />
                   <div>
                     <p className="text-sm text-gray-400">Location</p>
                     <p className="font-semibold">{project.location}</p>
@@ -255,7 +239,7 @@ export default function ProjectDetailPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <DollarSign size={20} className="text-purple-400" />
+                  <DollarSign size={20} className="text-[#e879f9]" />
                   <div>
                     <p className="text-sm text-gray-400">Budget</p>
                     <p className="font-semibold">{project.budget}</p>
@@ -273,7 +257,7 @@ export default function ProjectDetailPage() {
                   {!isJoined ? (
                     <button
                       onClick={handleJoinProject}
-                      className="w-full bg-gradient-to-r from-purple-500 to-blue-500 px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
+                      className="w-full bg-gradient-to-r from-[#e879f9] to-[#3b82f6] px-6 py-3 rounded-full font-semibold hover:opacity-90 transition"
                     >
                       Join Project
                     </button>
@@ -293,7 +277,7 @@ export default function ProjectDetailPage() {
                   <p className="text-sm text-gray-400 mb-2">Contact</p>
                   <a
                     href={`mailto:${project.contactEmail}`}
-                    className="text-purple-400 hover:underline text-sm"
+                    className="text-[#e879f9] hover:underline text-sm"
                   >
                     {project.contactEmail}
                   </a>
@@ -304,7 +288,7 @@ export default function ProjectDetailPage() {
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
               <h3 className="text-lg font-bold mb-4">Project Owner</h3>
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center font-bold">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#e879f9] to-[#3b82f6] rounded-full flex items-center justify-center font-bold">
                   {project.artist.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
@@ -318,4 +302,6 @@ export default function ProjectDetailPage() {
       </main>
     </div>
   );
-}
+};
+
+export default ProjectDetailPage;

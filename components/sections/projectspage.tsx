@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Search, Filter, Eye, Heart, Users, Plus, X } from 'lucide-react';
 
@@ -214,12 +215,13 @@ const ProjectsPage = () => {
                     <Users size={18} />
                     <span>{project.collaborators} collaborators</span>
                   </div>
-                  <button 
-                    onClick={() => handleJoinProject(project.id)}
-                    className="bg-gradient-to-r from-[#e879f9] to-[#3b82f6] px-6 py-2 rounded-full hover:opacity-90 transition"
-                  >
-                    Join Project
-                  </button>
+                  <Link href={`/projects/${project.id}`}>
+  <button className="bg-gradient-to-r from-[#e879f9] to-[#3b82f6] px-6 py-2 rounded-full hover:opacity-90 transition">
+    Join Project
+  </button>
+</Link>
+
+
                 </div>
               </div>
             </div>
