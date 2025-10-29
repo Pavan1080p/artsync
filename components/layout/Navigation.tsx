@@ -12,8 +12,8 @@ interface NavigationProps {
 }
 
 const defaultLinks = [
-  { href: "/portfolio", label: "Portfolio" }, // Updated to route to your portfolio page
-  { href: "#projects", label: "Projects" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/projects", label: "Projects" },  // ✅ UPDATED: Changed from "#projects" to "/projects"
   { href: "/about", label: "About" },
 ]
 
@@ -26,6 +26,7 @@ export function Navigation({ links = defaultLinks }: NavigationProps) {
       animate={{ y: 0 }}
       className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/20 border-b border-white/10"
     >
+      {/* Rest of your code remains the same */}
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <AnimatedLogo />
 
